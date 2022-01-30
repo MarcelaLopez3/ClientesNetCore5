@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ClientesNetCore5.Models.Cliente>
+@{
+    ViewData["Title"] = "Lista de clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Bienvenido</h1>
+<div class="container">
+
+            @if(TempData["mensaje"] != null)
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    @TempData["mensaje"]
+                    <button type="button" class="close" date-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+            }
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Lista de Clientes</h3>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-success d-block" asp-action="Create" asp-controller="Clientes">Agregar nuevo cliente</a>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (Model.Count() > 0)
+        {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.Identificacion)</td>
+                    <td>@Html.DisplayNameFor(m => m.PrimerNombre)</td>
+                    <td>@Html.DisplayNameFor(m => m.PrimerApellido)</td>
+                    <td>@Html.DisplayNameFor(m => m.FechaDeCreacion)</td>
+                    <td>@Html.DisplayNameFor(m => m.Edad)</td>
+                    <td>Acciones</td>
+                </tr>
+            </thead>
+            
+            <tbody>
+                
+                    @foreach (var item in Model)
+                    {<tr>
+    <td>@item.Identificacion</td>
+    <td>@item.PrimerNombre</td>
+    <td>@item.PrimerApellido</td>
+    <td>@item.FechaDeCreacion</td>
+    <td>@item.Edad</td>
+    <td>
+        <a asp-action="Edit" asp-controller="Clientes" asp-route-id="@item.Identificacion" class="btn btn-warning">Editar</a>
+        <a asp-action="Delete" asp-controller="Clientes" asp-route-id="@item.Identificacion" class="btn btn-warning">Eliminar</a>
+    </td>
+</tr>
+                    }
+
+                </tbody>
+                
+            </table>
+        }
+        else
+        { 
+            <p>No hay clientes.</p>        
+        }
+    </div>
+
+</div>
+
